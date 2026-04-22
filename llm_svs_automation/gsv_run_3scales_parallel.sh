@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 # 仅按数据规模(1h/5h/20h)并行训练脚本
-# - 默认统一使用 phoneme_pitch（不区分标注粒度）
+# - 默认统一使用 text_only（不区分标注粒度）
 # - 默认使用 GPU 0,3,6 分别跑 1h,5h,20h
 # - 每个规模流程：构建 train_gpt.list -> 预处理(1/2/3) -> S1 -> S2
 #
@@ -10,7 +10,7 @@ set -Eeuo pipefail
 # bash llm_svs_automation/gsv_run_3scales_parallel.sh \
 #   --root /mnt/workspace/hongchengxun/bishe3 \
 #   --gsv_root /mnt/workspace/hongchengxun/GPT-SoVITS \
-#   --mode phoneme_pitch \
+#   --mode text_only \
 #   --gpus 0,3,6
 
 usage() {
@@ -43,7 +43,7 @@ EOF
 
 ROOT="/mnt/workspace/hongchengxun/bishe3"
 GSV_ROOT="/mnt/workspace/hongchengxun/GPT-SoVITS"
-MODE="phoneme_pitch"
+MODE="text_only"
 GPUS="0,3,6"
 SCALES="1h,5h,20h"
 SKIP_PREPARE="0"
