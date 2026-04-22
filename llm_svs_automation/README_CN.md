@@ -14,6 +14,7 @@ llm_svs_automation/
 ├── batch_infer_and_eval.py          # 批量推理 + 指标评估
 ├── plot_metrics.py                  # 结果可视化
 ├── run_pipeline_example.sh          # 一键串联示例脚本
+├── gsv_prepare_serial.sh            # GPT-SoVITS 预处理串行脚本（带日志/断点续跑）
 ├── utils_manifest.py                # manifest 读写工具
 ├── utils_metrics.py                 # F0/MCD/声纹相似度工具
 ├── requirements.txt
@@ -88,6 +89,26 @@ bash llm_svs_automation/train_launcher.sh \
   --mode split2 \
   --gpus 0,1,2,3,4,5,6,7 \
   --cmd_template 'torchrun --nproc_per_node={ngpu} --master_port={port} /path/to/train.py --config {config}'
+```
+
+### Step C-1: GPT-SoVITS 预处理（推荐串行稳健模式）
+
+当 `1-get-text.py / 2-get-hubert-wav32k.py / 3-get-semantic.py` 容易 OOM 或终端断开时，建议使用本仓库提供的脚本：
+
+```bash
+bash llm_svs_automation/gsv_prepare_serial.sh \
+  --gsv_root /path/to/GPT-SoVITS \
+  --exp_dir /path/to/exp_dir \
+  --gpu 0
+```
+
+- 日志位置：`<exp_dir>/logs/prepare_时间戳/`
+- 最新日志软链：`<exp_dir>/logs/latest_prepare`
+- 断点续跑：默认开启（可通过 `--resume 0` 关闭）
+- 后台运行示例：
+
+```bash
+screen -dmS gsv_prep bash -lc 'bash /path/to/llm_svs_automation/gsv_prepare_serial.sh --gsv_root /path/to/GPT-SoVITS --exp_dir /path/to/exp_dir --gpu 0'
 ```
 
 `full8`（单实验占满8卡，按队列串行）：
