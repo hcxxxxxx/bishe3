@@ -1,0 +1,21 @@
+{
+  "default": {
+    "batch_size": 24,
+    "learning_rate": 0.0002,
+    "epochs": 200
+  },
+  "1h": {
+    "text_only": {
+      "batch_size": 12,
+      "learning_rate": 8e-05,
+      "epochs": 360
+    }
+  },
+  "20h": {
+    "phoneme_pitch": {
+      "batch_size": 32,
+      "learning_rate": 0.0003,
+      "epochs": 180
+    }
+  }
+}

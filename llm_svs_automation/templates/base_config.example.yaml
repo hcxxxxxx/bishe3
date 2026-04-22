@@ -1,0 +1,13 @@
+data:
+  train_list: /path/to/train.list
+train:
+  batch_size: 24
+  learning_rate: 0.0002
+  max_epoch: 200
+  output_dir: /path/to/exp_save
+  use_ddp: true
+  world_size: 8
+  nproc_per_node: 8
+  dist_backend: nccl
+  master_addr: 127.0.0.1
+  master_port: 29500

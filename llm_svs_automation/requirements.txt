@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+seaborn
+tqdm
+librosa
+soundfile
+pyyaml
+resemblyzer
